@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Regional del Maule - Infografía 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+            background: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .infographic {
+            width: 100%;
+            max-width: 1920px;
+            aspect-ratio: 16/9;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, #0F69B4 0%, #003D7A 100%);
+            height: 22%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            right: -10%;
+            width: 50%;
+            height: 300%;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .header-left {
+            z-index: 1;
+        }
+
+        .header-title {
+            color: white;
+            font-size: clamp(1.5rem, 3vw, 3.5rem);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: white;
+            font-size: clamp(1rem, 1.8vw, 1.8rem);
+            opacity: 0.95;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: clamp(20px, 3vw, 60px);
+            z-index: 1;
+        }
+
+        .header-stat-box {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            padding: clamp(15px, 2vw, 25px) clamp(25px, 3vw, 40px);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-stat-number {
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            font-weight: bold;
+            color: #D52B1E;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-stat-label {
+            color: white;
+            font-size: clamp(0.7rem, 1.1vw, 1.1rem);
+            margin-top: 0.3rem;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 78%;
+            gap: 0;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: clamp(20px, 3%, 40px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid #e0e0e0;
+        }
+
+        .section-title {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            color: #0F69B4;
+            font-weight: bold;
+            margin-bottom: clamp(15px, 2.5%, 30px);
+            text-align: center;
+            position: relative;
+            padding-bottom: clamp(8px, 1.5%, 15px);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(50px, 8%, 80px);
+            height: 4px;
+            background: #D52B1E;
+        }
+
+        /* Demographics Section */
+        .demo-section {
+            background: linear-gradient(to bottom, #f0f5ff 0%, #ffffff 100%);
+        }
+
+        .demo-bars-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 70%;
+            width: 100%;
+            gap: clamp(8px, 1.5%, 15px);
+        }
+
+        .demo-bar {
+            flex: 1;
+            background: linear-gradient(to top, #0F69B4, #003D7A);
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: clamp(10px, 2%, 15px) clamp(5px, 1%, 8px);
+            color: white;
+            box-shadow: 0 -4px 15px rgba(15,105,180,0.3);
+            transition: all 0.8s ease;
+        }
+
+        .demo-bar:hover {
+            background: linear-gradient(to top, #D52B1E, #b02318);
+        }
+
+        .demo-icon {
+            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+            margin-bottom: clamp(5px, 1%, 10px);
+        }
+
+        .demo-percentage {
+            font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+            font-weight: bold;
+            margin-bottom: clamp(5px, 1%, 8px);
+        }
+
+        .demo-label {
+            font-size: clamp(0.6rem, 0.85vw, 0.85rem);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: white;
+            grid-column: span 2;
+        }
+
+        .timeline-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(15px, 2.5%, 30px);
+            width: 100%;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            border: 3px solid #0F69B4;
+            border-radius: 15px;
+            padding: clamp(15px, 2.5%, 25px);
+            position: relative;
+        }
+
+        .timeline-month {
+            background: #D52B1E;
+            color: white;
+            display: inline-block;
+            padding: clamp(5px, 1%, 8px) clamp(12px, 2%, 20px);
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: clamp(0.8rem, 1.1vw, 1.1rem);
+            margin-bottom: clamp(8px, 1.5%, 15px);
+        }
+
+        .timeline-text {
+            color: #003D7A;
+            line-height: 1.6;
+            font-size: clamp(0.7rem, 0.95vw, 0.95rem);
+        }
+
+        /* Stories Section */
+        .stories-section {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+        }
+
+        .story-card {
+            background: white;
+            border-left: 6px solid #D52B1E;
+            border-radius: 10px;
+            padding: clamp(15px, 2.5%, 25px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            margin-bottom: clamp(10px, 2%, 20px);
+        }
+
+        .story-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .quote-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: #0F69B4;
+            opacity: 0.15;
+            position: absolute;
+            top: clamp(10px, 1.5%, 15px);
+            left: clamp(15px, 2%, 20px);
+        }
+
+        .story-text {
+            font-size: clamp(0.7rem, 1vw, 1rem);
+            line-height: 1.7;
+            color: #003D7A;
+            font-style: italic;
+            margin-bottom: clamp(8px, 1.2%, 12px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-author {
+            color: #D52B1E;
+            font-weight: bold;
+            font-size: clamp(0.65rem, 0.95vw, 0.95rem);
+            text-align: right;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #003D7A 0%, #0F69B4 100%);
+            color: white;
+            grid-column: span 2;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: clamp(15px, 2.5%, 30px);
+            width: 100%;
+        }
+
+        .contact-box {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            padding: clamp(20px, 3%, 30px) clamp(15px, 2%, 20px);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: clamp(10px, 1.5%, 15px);
+        }
+
+        .contact-box h3 {
+            font-size: clamp(1rem, 1.4vw, 1.4rem);
+            margin-bottom: clamp(8px, 1.2%, 12px);
+        }
+
+        .contact-box p {
+            line-height: 1.7;
+            font-size: clamp(0.7rem, 0.95vw, 0.95rem);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 1.5%, 15px);
+            margin-top: clamp(8px, 1.2%, 12px);
+        }
+
+        .social-icon {
+            width: clamp(35px, 4.5vw, 45px);
+            height: clamp(35px, 4.5vw, 45px);
+            background: white;
+            color: #0F69B4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 1.3vw, 1.3rem);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: #D52B1E;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .cta-button {
+            background: #D52B1E;
+            color: white;
+            padding: clamp(10px, 1.5%, 15px) clamp(25px, 3.5%, 35px);
+            border-radius: 25px;
+            font-size: clamp(0.8rem, 1.1vw, 1.1rem);
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: clamp(12px, 2%, 20px);
+            box-shadow: 0 4px 15px rgba(213,43,30,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #b02318;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .timeline-section {
+                grid-column: span 2;
+            }
+
+            .contact-section {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .infographic {
+                aspect-ratio: auto;
+                min-height: 100vh;
+            }
+
+            .header-banner {
+                flex-direction: column;
+                height: auto;
+                padding: 30px 20px;
+            }
+
+            .header-stats {
+                margin-top: 20px;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-stat-box {
+                width: 100%;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .timeline-section,
+            .contact-section {
+                grid-column: span 1;
+            }
+
+            .timeline-container,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic">
+        <!-- Header Banner -->
+        <div class="header-banner">
+            <div class="header-left">
+                <div class="header-title">📚 BIBLIOTECA REGIONAL DEL MAULE</div>
+                <div class="header-subtitle">Inventario Octubre 2025</div>
+            </div>
+            <div class="header-stats">
+                <div class="header-stat-box">
+                    <div class="header-stat-number">17.900</div>
+                    <div class="header-stat-label">Códigos Totales</div>
+                </div>
+                <div class="header-stat-box">
+                    <div class="header-stat-number">+1.876</div>
+                    <div class="header-stat-label">Libros Nuevos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Demographics Section -->
+            <div class="section demo-section">
+                <h2 class="section-title">COMUNIDAD<br>LECTORA</h2>
+                <div class="demo-bars-container">
+                    <div class="demo-bar" style="height: 70%">
+                        <div class="demo-icon">👶</div>
+                        <div class="demo-percentage">35%</div>
+                        <div class="demo-label">Niños<br>0-12</div>
+                    </div>
+                    <div class="demo-bar" style="height: 56%">
+                        <div class="demo-icon">🎓</div>
+                        <div class="demo-percentage">28%</div>
+                        <div class="demo-label">Jóvenes<br>13-25</div>
+                    </div>
+                    <div class="demo-bar" style="height: 50%">
+                        <div class="demo-icon">👔</div>
+                        <div class="demo-percentage">25%</div>
+                        <div class="demo-label">Adultos<br>26-59</div>
+                    </div>
+                    <div class="demo-bar" style="height: 24%">
+                        <div class="demo-icon">👴</div>
+                        <div class="demo-percentage">12%</div>
+                        <div class="demo-label">Mayores<br>60+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="section timeline-section">
+                <h2 class="section-title">ACTIVIDADES CULTURALES 2025</h2>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-month">📅 ENE - MAR</div>
+                        <div class="timeline-text">Talleres de lectura infantil y Club de Lectura para adultos. Cuentacuentos de verano.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-month">📅 ABR - JUN</div>
+                        <div class="timeline-text">Encuentros literarios con autores regionales. Día del Libro con actividades especiales.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-month">📅 JUL - SEP</div>
+                        <div class="timeline-text">Talleres de escritura creativa. Semana de la Biblioteca con exposiciones y charlas.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-month">📅 OCT - DIC</div>
+                        <div class="timeline-text">Festival de Cuentacuentos. Cierre anual con presentaciones culturales.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stories Section -->
+            <div class="section stories-section">
+                <h2 class="section-title">HISTORIAS<br>REALES</h2>
+                <div class="story-card">
+                    <div class="quote-icon">"</div>
+                    <div class="story-text">La biblioteca me abrió las puertas a mundos que nunca imaginé. Aquí encontré una comunidad que comparte mi pasión por la lectura.</div>
+                    <div class="story-author">— Carolina</div>
+                </div>
+                <div class="story-card">
+                    <div class="quote-icon">"</div>
+                    <div class="story-text">Los recursos han sido fundamentales para mi formación. El acceso y la ayuda del personal me permitieron avanzar en mis estudios.</div>
+                    <div class="story-author">— Benjamín</div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section contact-section">
+                <h2 class="section-title" style="color: white;">VISÍTANOS</h2>
+                <div class="contact-grid">
+                    <div class="contact-box">
+                        <div class="contact-icon">📍</div>
+                        <h3>Ubicación</h3>
+                        <p>Biblioteca Regional<br>del Maule<br>Talca, Chile</p>
+                    </div>
+                    <div class="contact-box">
+                        <div class="contact-icon">🕐</div>
+                        <h3>Horarios 2025</h3>
+                        <p>Lun - Vie: 9:00 - 18:00<br>Sábados: 10:00 - 14:00<br>Domingos: Cerrado</p>
+                    </div>
+                    <div class="contact-box">
+                        <div class="contact-icon">📱</div>
+                        <h3>Síguenos</h3>
+                        <div class="social-icons">
+                            <div class="social-icon">f</div>
+                            <div class="social-icon">📷</div>
+                            <div class="social-icon">🐦</div>
+                        </div>
+                        <button class="cta-button">🎫 OBTENER CARNET</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
